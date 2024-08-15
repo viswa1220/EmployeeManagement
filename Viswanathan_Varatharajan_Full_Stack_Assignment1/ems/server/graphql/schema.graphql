@@ -1,0 +1,44 @@
+
+enum EmployeeType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  SEASONAL
+}
+
+type Employee {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  age: Int!
+  dateOfJoining: String!
+  title: String!
+  department: String!
+  employeeType: EmployeeType!
+  currentStatus: Boolean!
+}
+
+input EmployeeInput {
+  firstName: String!
+  lastName: String!
+  age: Int!
+  dateOfJoining: String!  # Adjust based on your date format
+  title: String!
+  department: String!
+  employeeType: EmployeeType!
+  currentStatus: Boolean!
+}
+
+type Query {
+  employees: [Employee]
+  fullTimeEmployees: [Employee]
+  partTimeEmployees: [Employee]
+  contractEmployees: [Employee]
+  seasonalEmployees: [Employee]
+}
+
+type Mutation {
+  createEmployee(input: EmployeeInput!): Employee
+   deleteEmployee(id: ID!): Employee
+   updateEmployee(id: ID!, input: EmployeeInput!): Employee
+}
