@@ -5,14 +5,7 @@ html, body {
     overflow: auto;
   }
   
-  .container {
-    padding: 0 20%;
-    background-color: #f0f8ff;
-    min-height: 100vh;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-  }
+
   
   h1 {
     font-size: 1.5rem;

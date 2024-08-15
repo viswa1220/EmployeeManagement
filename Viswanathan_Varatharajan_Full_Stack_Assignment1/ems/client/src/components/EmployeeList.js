@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { graphQLCommand } from '../utils';
-import EmployeeSearch from './EmployeeSearch'; // Import the search component
-import EmployeeTable from './EmployeeTable'; // Import the EmployeeTable component
-import './EmployeeList.css'; // Import the updated CSS file
+import EmployeeSearch from './EmployeeSearch';
+import EmployeeTable from './EmployeeTable';
+import './EmployeeList.css';
+import HeaderNavigation from './Headernavigation';
 
 // GraphQL queries and mutations
 const LIST_EMPLOYEES = `
@@ -30,12 +31,6 @@ const DELETE_EMPLOYEE = `
   }
 `;
 
-// Utility function to format date
-const formatDate = (timestamp) => {
-  const date = new Date(Number(timestamp));
-  return date.toLocaleDateString(); // Format as 'MM/DD/YYYY'
-};
-
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
@@ -49,7 +44,6 @@ const EmployeeList = () => {
   const fetchEmployees = useCallback(async () => {
     let query;
 
-    // Define queries based on employee type
     switch (currentType) {
       case 'fullTime':
         query = `
@@ -130,7 +124,7 @@ const EmployeeList = () => {
       const result = await graphQLCommand(query);
       const employeeData = result[`${currentType}Employees`] || result.employees || [];
       setEmployees(employeeData);
-      setFilteredEmployees(employeeData); // Initialize filteredEmployees
+      setFilteredEmployees(employeeData);
     } catch (error) {
       setError('Failed to fetch employees: ' + (error.message || 'Unknown error'));
     } finally {
@@ -157,7 +151,7 @@ const EmployeeList = () => {
 
     try {
       await graphQLCommand(DELETE_EMPLOYEE, { id });
-      fetchEmployees(); 
+      fetchEmployees();
     } catch (error) {
       setError('Error deleting employee: ' + (error.message || 'Unknown error'));
     }
@@ -171,15 +165,24 @@ const EmployeeList = () => {
     navigate(`/employee-detail/${id}`);
   };
 
-  return (
-    <div className="container">
-      <h1>Employee List</h1>
+  // Handle navigation to the Upcoming Retirement page
+  const handleUpcomingRetirement = () => {
+    navigate('/upcoming-retirement');
+  };
 
-      <EmployeeSearch onSearch={handleSearch} /> {}
+  return (
+    <div className="List">
+      <HeaderNavigation></HeaderNavigation>
+      <h1 className="mb-4">Employee List</h1>
+      <div className="mb-3 d-flex justify-content-between">
+        <EmployeeSearch onSearch={handleSearch} />
+        <button className="btn" onClick={handleUpcomingRetirement}>
+          Upcoming Retirement
+        </button>
+      </div>
 
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
       {filteredEmployees.length === 0 ? (
         <p>No employees available.</p>
       ) : (

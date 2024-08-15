@@ -11,22 +11,24 @@ type Employee {
   firstName: String!
   lastName: String!
   age: Int!
+  dateOfBirth:String!
   dateOfJoining: String!
   title: String!
   department: String!
   employeeType: EmployeeType!
-  currentStatus: Boolean!
+  currentStatus: String!
 }
 
 input EmployeeInput {
   firstName: String!
   lastName: String!
   age: Int!
-  dateOfJoining: String!  # Adjust based on your date format
+   dateOfBirth:String!
+  dateOfJoining: String!  
   title: String!
   department: String!
   employeeType: EmployeeType!
-  currentStatus: Boolean!
+  currentStatus: String!
 }
 
 type Query {

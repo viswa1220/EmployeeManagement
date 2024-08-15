@@ -1,38 +1,24 @@
-.container {
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.table-wrapper {
-  max-height: 500px; 
+.employee-table-container {
+  max-height: 70vh; /* Adjust the height as needed */
   overflow-y: auto;
-  border: 1px solid #ddd; 
-  border-radius: 8px;
+  position: relative;
 }
 
-.employee-table {
-  width: 100%;
-  border-collapse: collapse;
+.employee-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 100; /* Ensure the header is above other content */
 }
 
-.employee-table th, .employee-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.table-header {
+  background-color: #28a745; /* Green header */
+  color: #ffffff;
 }
 
-.employee-table th {
-  background-color: #f4f4f4;
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f8f9fa; /* Light grey rows */
 }
 
-.actions-container {
-  display: flex;
-  gap: 5px;
-}
-
-.no-data {
-  text-align: center;
-  padding: 20px;
-  color: #888;
+.table-hover tbody tr:hover {
+  background-color: #e9ecef;
 }

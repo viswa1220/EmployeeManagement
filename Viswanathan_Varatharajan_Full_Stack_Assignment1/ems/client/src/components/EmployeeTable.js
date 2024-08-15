@@ -1,13 +1,13 @@
-
 import React from 'react';
-import EmployeeRow from './EmployeeRow';
-import './EmployeeTable.css'; 
+import { Table, Button, Container } from 'react-bootstrap';
+import dayjs from 'dayjs';
+import './EmployeeTable.css';
 
 const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
-  <div className="container">
-    <div className="table-wrapper">
-      <table className="employee-table">
-        <thead>
+  <Container fluid className="vh-100 p-4">
+    <div className="employee-table-container">
+      <Table striped bordered hover className="employee-table">
+        <thead className="table-header">
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -20,28 +20,39 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
             <th>Actions</th>
           </tr>
         </thead>
-        {employees.length > 0 ? (
-          <tbody>
-            {employees.map((employee) => (
-              <EmployeeRow 
-                key={employee.id} 
-                employee={employee} 
-                onDelete={onDelete} 
-                onEdit={onEdit} 
-                onViewDetails={onViewDetails} 
-              />
-            ))}
-          </tbody>
-        ) : (
-          <tbody>
+        <tbody>
+          {employees.length > 0 ? (
+            employees.map((employee) => {
+              const status = employee.currentStatus ? 'Working' : 'Retired';
+              const formattedDateOfJoining = dayjs(employee.dateOfJoining).format('MMMM D, YYYY');
+
+              return (
+                <tr key={employee.id}>
+                  <td>{employee.firstName}</td>
+                  <td>{employee.lastName}</td>
+                  <td>{employee.age}</td>
+                  <td>{formattedDateOfJoining}</td>
+                  <td>{employee.title}</td>
+                  <td>{employee.department}</td>
+                  <td>{employee.employeeType}</td>
+                  <td>{status}</td>
+                  <td>
+                    <Button variant="primary" size="sm" onClick={() => onViewDetails(employee.id)} className="me-2">View</Button>
+                    <Button variant="warning" size="sm" onClick={() => onEdit(employee.id)} className="me-2">Edit</Button>
+                    <Button variant="danger" size="sm" onClick={() => onDelete(employee.id)}>Delete</Button>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
             <tr>
-              <td colSpan="9" className="no-data">No Data</td>
+              <td colSpan="9" className="text-center">No Data</td>
             </tr>
-          </tbody>
-        )}
-      </table>
+          )}
+        </tbody>
+      </Table>
     </div>
-  </div>
+  </Container>
 );
 
 export default EmployeeTable;
