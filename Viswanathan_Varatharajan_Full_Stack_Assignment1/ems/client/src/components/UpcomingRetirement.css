@@ -1,31 +1,68 @@
+.List {
+  padding: 20px;
+}
 
-  .filter-container {
-    margin-bottom: 20px;
-  }
-  
-  .card-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .card {
-    max-width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  .card-body {
-    padding: 15px;
-  }
-  
-  .row {
-    margin-bottom: 10px;
-  }
-  
-  .detail-item {
-    margin-bottom: 5px;
-  }
-  
+h1 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-container label {
+  margin-right: 10px;
+}
+
+.filter-container select {
+  padding: 5px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.employee-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.detail-item {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.detail-item strong {
+  display: block;
+  margin-bottom: 5px;
+  color: navy;
+}
+
+.detail-item {
+  font-size: 0.875rem;
+  color: #333;
+}

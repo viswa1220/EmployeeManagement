@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,7 +16,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
     title: '',
     department: '',
     employeeType: '',
-    currentStatus:'Working', // Default status
+    currentStatus:'Working', 
   });
 
   const navigate = useNavigate();
@@ -38,9 +38,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
 
   const handleDateOfBirthChange = (date) => {
     const age = calculateAge(date);
-    const today = dayjs();
-    const retirementDate = dayjs(date).add(65, 'year');
-    const monthsUntilRetirement = retirementDate.diff(today, 'month');
+  
   
     let status = 'Working';
     

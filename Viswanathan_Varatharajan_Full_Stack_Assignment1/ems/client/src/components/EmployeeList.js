@@ -40,6 +40,7 @@ const EmployeeList = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const currentType = queryParams.get('type') || 'all';
+  const searchTerm = queryParams.get('search') || '';
 
   const fetchEmployees = useCallback(async () => {
     let query;
@@ -124,7 +125,6 @@ const EmployeeList = () => {
       const result = await graphQLCommand(query);
       const employeeData = result[`${currentType}Employees`] || result.employees || [];
       setEmployees(employeeData);
-      setFilteredEmployees(employeeData);
     } catch (error) {
       setError('Failed to fetch employees: ' + (error.message || 'Unknown error'));
     } finally {
@@ -136,13 +136,17 @@ const EmployeeList = () => {
     fetchEmployees();
   }, [fetchEmployees]);
 
-  const handleSearch = (term) => {
-    const lowercasedTerm = term.toLowerCase();
+  useEffect(() => {
+    const lowercasedTerm = searchTerm.toLowerCase();
     const filtered = employees.filter((employee) =>
       employee.firstName.toLowerCase().includes(lowercasedTerm) ||
       employee.lastName.toLowerCase().includes(lowercasedTerm)
     );
     setFilteredEmployees(filtered);
+  }, [searchTerm, employees]);
+
+  const handleSearch = (term) => {
+    navigate(`?type=${currentType}&search=${term}`);
   };
 
   const handleDelete = async (id, status) => {
@@ -170,18 +174,22 @@ const EmployeeList = () => {
     navigate(`/employee-detail/${id}`);
   };
 
-  // Handle navigation to the Upcoming Retirement page
   const handleUpcomingRetirement = () => {
     navigate('/upcoming-retirement');
   };
 
   return (
     <div className="List">
-      <HeaderNavigation></HeaderNavigation>
+      <HeaderNavigation />
       <h1 className="mb-4">Employee List</h1>
-      <div className="mb-3 d-flex justify-content-between">
-        <EmployeeSearch onSearch={handleSearch} />
-        <button className="btn" onClick={handleUpcomingRetirement}>
+      <div className="mb-3 d-flex justify-content-between align-items-center">
+        <div className="d-flex flex-grow-1 justify-content-center">
+          <EmployeeSearch onSearch={handleSearch} className="search-bar" />
+        </div>
+        <button 
+          className="btn btn-success ms-3 btn-sm" 
+          onClick={handleUpcomingRetirement}
+        >
           Upcoming Retirement
         </button>
       </div>
@@ -191,7 +199,12 @@ const EmployeeList = () => {
       {filteredEmployees.length === 0 ? (
         <p>No employees available.</p>
       ) : (
-        <EmployeeTable employees={filteredEmployees} onDelete={handleDelete} onEdit={handleEdit} onViewDetails={handleViewDetails} />
+        <EmployeeTable 
+          employees={filteredEmployees} 
+          onDelete={handleDelete} 
+          onEdit={handleEdit} 
+          onViewDetails={handleViewDetails} 
+        />
       )}
     </div>
   );

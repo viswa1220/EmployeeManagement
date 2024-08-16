@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import './EmployeeSearch.css'; 
 
-const EmployeeSearch = ({ onSearch }) => {
+const EmployeeSearch = ({ onSearch, className }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (e) => {
@@ -12,7 +11,7 @@ const EmployeeSearch = ({ onSearch }) => {
   };
 
   return (
-    <div className="search-container">
+    <div className={`search-container ${className}`}>
       <form className="search-form" onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
@@ -21,7 +20,6 @@ const EmployeeSearch = ({ onSearch }) => {
           onChange={handleChange}
           className="search-input"
         />
-        
       </form>
     </div>
   );

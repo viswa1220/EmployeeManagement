@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { graphQLCommand } from '../utils';
 import './UpcomingRetirement.css';
@@ -86,8 +86,6 @@ const UpcomingRetirement = () => {
   const handleTypeChange = (event) => {
     const newType = event.target.value;
     setSelectedType(newType);
-
-    // Update the URL with the new query parameter
     navigate(`/upcoming-retirement?employeeType=${newType}`);
   };
 
@@ -105,6 +103,7 @@ const UpcomingRetirement = () => {
           <option value="FULL_TIME">Full Time</option>
           <option value="PART_TIME">Part Time</option>
           <option value="SEASONAL">Seasonal</option>
+          <option value="CONTRACT">Contract</option>
         </select>
       </div>
 
@@ -115,48 +114,30 @@ const UpcomingRetirement = () => {
           {filteredEmployees.map((employee) => (
             <div key={employee.id} className="card mb-3">
               <div className="card-body">
-                <h5 className="card-title">{employee.firstName} {employee.lastName}</h5>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Age:</strong> {employee.age}
-                    </div>
+                <div className="employee-details">
+                  <div className="detail-item">
+                    <strong>Name:</strong> {employee.firstName} {employee.lastName}
                   </div>
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Date of Birth:</strong> {new Date(parseInt(employee.dateOfBirth, 10)).toLocaleDateString()}
-                    </div>
+                  <div className="detail-item">
+                    <strong>Age:</strong> {employee.age}
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Date of Joining:</strong> {new Date(parseInt(employee.dateOfJoining, 10)).toLocaleDateString()}
-                    </div>
+                  <div className="detail-item">
+                    <strong>Date of Birth:</strong> {new Date(parseInt(employee.dateOfBirth, 10)).toLocaleDateString()}
                   </div>
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Title:</strong> {employee.title}
-                    </div>
+                  <div className="detail-item">
+                    <strong>Date of Joining:</strong> {new Date(parseInt(employee.dateOfJoining, 10)).toLocaleDateString()}
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Department:</strong> {employee.department}
-                    </div>
+                  <div className="detail-item">
+                    <strong>Title:</strong> {employee.title}
                   </div>
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Employee Type:</strong> {employee.employeeType}
-                    </div>
+                  <div className="detail-item">
+                    <strong>Department:</strong> {employee.department}
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="detail-item">
-                      <strong>Status:</strong> {employee.currentStatus === 'true' ? 'Active' : 'Inactive'}
-                    </div>
+                  <div className="detail-item">
+                    <strong>Employee Type:</strong> {employee.employeeType}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Status:</strong> {employee.currentStatus}
                   </div>
                 </div>
               </div>
@@ -164,6 +145,10 @@ const UpcomingRetirement = () => {
           ))}
         </div>
       )}
+
+      <div className="navigation-button">
+        <Link to="/" className="btn btn-primary">Back to List</Link>
+      </div>
     </div>
   );
 };
