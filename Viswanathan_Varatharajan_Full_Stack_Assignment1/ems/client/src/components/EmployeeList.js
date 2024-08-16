@@ -4,7 +4,7 @@ import { graphQLCommand } from '../utils';
 import EmployeeSearch from './EmployeeSearch';
 import EmployeeTable from './EmployeeTable';
 import './EmployeeList.css';
-import HeaderNavigation from './Headernavigation';
+import HeaderNavigation from './HeaderNavigation';
 
 // GraphQL queries and mutations
 const LIST_EMPLOYEES = `
@@ -165,13 +165,13 @@ const EmployeeList = () => {
       setError('Error deleting employee: ' + (error.message || 'Unknown error'));
     }
   };
-  
+
   const handleEdit = (id) => {
-    navigate(`/edit-employee/${id}`);
+    navigate(`/employees/edit/${id}`);
   };
 
   const handleViewDetails = (id) => {
-    navigate(`/employee-detail/${id}`);
+    navigate(`/employees/detail/${id}`);
   };
 
   const handleUpcomingRetirement = () => {
@@ -180,7 +180,7 @@ const EmployeeList = () => {
 
   return (
     <div className="List">
-      <HeaderNavigation />
+      <HeaderNavigation currentType={currentType} />
       <h1 className="mb-4">Employee List</h1>
       <div className="mb-3 d-flex justify-content-between align-items-center">
         <div className="d-flex flex-grow-1 justify-content-center">

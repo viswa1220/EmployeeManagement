@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import dayjs from 'dayjs';
-import './EmployeeCreate.css';
+import './EmployeeCreate.css'; // Ensure Bootstrap is included in your project
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EmployeeCreate = ({ onEmployeeCreated }) => {
@@ -16,7 +16,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
     title: '',
     department: '',
     employeeType: '',
-    currentStatus:'Working', 
+    currentStatus: '',
   });
 
   const navigate = useNavigate();
@@ -38,15 +38,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
 
   const handleDateOfBirthChange = (date) => {
     const age = calculateAge(date);
-  
-  
-    let status = 'Working';
-    
-    
-    if (age >= 65) {
-      status = 'Retired';
-    }
-  
+    const status = age >= 65 ? 'Retired' : 'Working';
     setEmployee((prevState) => ({
       ...prevState,
       dateOfBirth: date,
@@ -54,10 +46,9 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
       currentStatus: status,
     }));
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:3001/graphql', {
         method: 'POST',
@@ -93,7 +84,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
       const result = await response.json();
       if (result.data && result.data.createEmployee) {
         onEmployeeCreated(result.data.createEmployee);
-        navigate('/');
+        navigate('/list'); 
       } else {
         console.error('Unexpected result format:', result);
       }
@@ -105,12 +96,16 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
   return (
     <div className="container mt-4">
       <header className="d-flex justify-content-between align-items-center mb-4">
-        <Link to="/" className="btn btn-primary">Home</Link>
-        <h1>Employee Management System</h1>
+        <div className="d-flex justify-content-between w-100">
+          <h1 className="text-center flex-grow-1">Employee Management System</h1>
+          <button className="btn btn-secondary backList" onClick={() => navigate('/')}>
+            Back to List
+          </button>
+        </div>
       </header>
 
       <form onSubmit={handleSubmit} className="needs-validation" noValidate>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">First Name</label>
           <input
             type="text"
@@ -122,7 +117,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             className="form-control"
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Last Name</label>
           <input
             type="text"
@@ -134,7 +129,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             className="form-control"
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Date of Birth</label>
           <DatePicker
             selected={employee.dateOfBirth}
@@ -145,7 +140,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             required
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Age</label>
           <input
             type="number"
@@ -155,7 +150,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             className="form-control"
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Date of Joining</label>
           <input
             type="date"
@@ -166,7 +161,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             className="form-control"
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Title</label>
           <select
             name="title"
@@ -182,7 +177,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             <option value="Tester">Tester</option>
           </select>
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Department</label>
           <select
             name="department"
@@ -197,7 +192,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             <option value="IT">IT</option>
           </select>
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Employee Type</label>
           <select
             name="employeeType"
@@ -213,7 +208,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             <option value="SEASONAL">Seasonal</option>
           </select>
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">Current Status</label>
           <input
             type="text"
