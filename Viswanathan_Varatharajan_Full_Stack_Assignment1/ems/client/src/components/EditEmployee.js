@@ -11,6 +11,7 @@ const GET_EMPLOYEES = `
       firstName
       lastName
       age
+      dateOfBirth
       dateOfJoining
       title
       department
@@ -27,6 +28,7 @@ const UPDATE_EMPLOYEE = `
       firstName
       lastName
       age
+      dateOfBirth
       dateOfJoining
       title
       department
@@ -50,6 +52,7 @@ const EditEmployee = ({ onEmployeeUpdated }) => {
     firstName: '',
     lastName: '',
     age: '',
+    dateOfBirth: '',
     dateOfJoining: '',
     title: '',
     department: '',
@@ -69,11 +72,12 @@ const EditEmployee = ({ onEmployeeUpdated }) => {
             firstName: employeeData.firstName,
             lastName: employeeData.lastName,
             age: employeeData.age,
+            dateOfBirth: formatDate(employeeData.dateOfBirth), 
             dateOfJoining: formatDate(employeeData.dateOfJoining), 
             title: employeeData.title,
             department: employeeData.department,
             employeeType: employeeData.employeeType,
-            currentStatus: employeeData.currentStatus,
+            currentStatus: employeeData.currentStatus ? 'Working' : 'Retired',
           });
         } else {
           setError('Employee not found');
@@ -101,10 +105,12 @@ const EditEmployee = ({ onEmployeeUpdated }) => {
       const { id, ...input } = formData;
       await graphQLCommand(UPDATE_EMPLOYEE, {
         id: employee.id,
-        input,
+        input: {
+          ...input,
+          currentStatus: input.currentStatus === 'Working' ? 'Working' : 'Retired',
+        },
       });
 
-      
       if (onEmployeeUpdated) {
         onEmployeeUpdated(formData);
       }
@@ -146,6 +152,15 @@ const EditEmployee = ({ onEmployeeUpdated }) => {
             value={formData.age}
             onChange={handleInputChange}
             placeholder="Age"
+            readOnly
+            className="form-input read-only"
+          />
+          <input
+            type="date"
+            name="dateOfBirth"
+            value={formData.dateOfBirth}
+            onChange={handleInputChange}
+            placeholder="Date of Birth"
             readOnly
             className="form-input read-only"
           />
@@ -198,17 +213,19 @@ const EditEmployee = ({ onEmployeeUpdated }) => {
           </select>
           <label>
             Current Status:
-            <input
-              type="checkbox"
+            <select
               name="currentStatus"
-              checked={formData.currentStatus}
+              value={formData.currentStatus}
               onChange={(e) => setFormData(prevData => ({
                 ...prevData,
-                currentStatus: e.target.checked,
+                currentStatus: e.target.value,
               }))}
-              className="form-checkbox"
-            />
-            <span>{formData.currentStatus ? 'Working' : 'Retired'}</span>
+              className="form-select read-only"
+              disabled
+            >
+              <option value="Working">Working</option>
+              <option value="Retired">Retired</option>
+            </select>
           </label>
           <button type="submit" className="form-button">Update Employee</button>
         </form>

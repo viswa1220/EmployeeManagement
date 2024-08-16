@@ -24,7 +24,7 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
           {employees.length > 0 ? (
             employees.map((employee) => {
               
-              const formattedDateOfJoining = dayjs(employee.dateOfJoining).format('MMMM D, YYYY');
+              const formattedDateOfJoining = dayjs(employee.dateOfJoining).format('YYYY/MM/DD');
 
               return (
                 <tr key={employee.id}>
