@@ -44,8 +44,8 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
   
     let status = 'Working';
     
-    // If the employee is 65 or will turn 65 within the next 6 months
-    if (age >= 65 || (age === 64 && monthsUntilRetirement <= 6)) {
+    
+    if (age >= 65) {
       status = 'Retired';
     }
   
