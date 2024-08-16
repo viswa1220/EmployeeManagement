@@ -1,7 +1,7 @@
-import React from 'react';
-import { Table, Button, Container } from 'react-bootstrap';
-import dayjs from 'dayjs';
-import './EmployeeTable.css';
+import React from "react";
+import { Table, Button, Container } from "react-bootstrap";
+import dayjs from "dayjs";
+import "./EmployeeTable.css";
 
 const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
   <Container fluid className="vh-100 p-4">
@@ -23,8 +23,9 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
         <tbody>
           {employees.length > 0 ? (
             employees.map((employee) => {
-              
-              const formattedDateOfJoining = dayjs(employee.dateOfJoining).format('YYYY/MM/DD');
+              const formattedDateOfJoining = dayjs(
+                employee.dateOfJoining
+              ).format("YYYY/MM/DD");
 
               return (
                 <tr key={employee.id}>
@@ -35,28 +36,28 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
                   <td>{employee.title}</td>
                   <td>{employee.department}</td>
                   <td>{employee.employeeType}</td>
-                  <td>{employee.currentStatus }</td>
-                  <td>
-                    <Button 
-                      variant="primary" 
-                      size="sm" 
-                      onClick={() => onViewDetails(employee.id)} 
-                      className="me-2"
+                  <td>{employee.currentStatus}</td>
+                  <td className="table-actions">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => onViewDetails(employee.id)}
                     >
                       View
                     </Button>
-                    <Button 
-                      variant="warning" 
-                      size="sm" 
-                      onClick={() => onEdit(employee.id)} 
-                      className="me-2"
+                    <Button
+                      variant="warning"
+                      size="sm"
+                      onClick={() => onEdit(employee.id)}
                     >
                       Edit
                     </Button>
-                    <Button 
-                      variant="danger" 
-                      size="sm" 
-                      onClick={() => onDelete(employee.id, employee.currentStatus)}
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() =>
+                        onDelete(employee.id, employee.currentStatus)
+                      }
                     >
                       Delete
                     </Button>
@@ -66,7 +67,9 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
             })
           ) : (
             <tr>
-              <td colSpan="9" className="text-center">No Data</td>
+              <td colSpan="9" className="text-center">
+                No Data
+              </td>
             </tr>
           )}
         </tbody>

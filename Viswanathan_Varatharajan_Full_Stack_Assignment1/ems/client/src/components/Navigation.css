@@ -1,42 +1,65 @@
-/* Navigation.css */
-
 nav {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center;    /* Center align items horizontally */
-    padding: 10px 20px;
-    background-color: #f8f9fa;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-  }
-  
-  .nav-links li {
-    margin: 0; /* Remove margin from list items */
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .nav-links a.active {
-    color: #28a745;
-  }
-  
-  .create-button {
-    text-decoration: none;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 10px; /* Add some space above the button */
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  /* Align items to the edges */
+  align-items: center;
+  /* Center align items vertically */
+  padding: 1rem 2rem;
+
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: #FAD300;
+  /* Bright Yellow on hover */
+  color: #0C121C;
+  /* Dark Navy Blue on hover */
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #FAD300;
+  /* Bright Yellow */
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #0C121C;
+  /* Dark Navy Blue */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-links a.active {
+  color: #000000;
+  /* Slightly darker yellow for active link */
+}
+
+.create-button {
+  text-decoration: none;
+  background-color: #FAD300;
+  /* Bright Yellow */
+  color: #0C121C;
+  /* Dark Navy Blue */
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.create-button:hover {
+  background-color: #E6B800;
+  /* Slightly darker yellow on hover */
+  color: #ffffff;
+  /* White text on hover */
+}

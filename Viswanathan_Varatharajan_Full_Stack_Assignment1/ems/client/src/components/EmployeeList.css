@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -7,47 +8,80 @@ html, body {
 
 h1 {
   font-size: 1.5rem;
-  color: #333;
+  color: #FAD300;
+  /* Bright Yellow */
   margin: 0;
   text-align: center;
 }
 
 .List {
   padding: 20px;
+  background-color: #ffffff;
+  /* White background for better readability */
+  color: #0C121C;
+  /* Dark Navy Blue text for contrast */
 }
 
 .search-bar {
   width: 100%;
-  max-width: 500px; /* Adjust the max-width as needed */
+  max-width: 500px;
+  /* Adjust the max-width as needed */
   margin: 0 auto;
 }
 
 .search-bar input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #0C121C;
+  /* Dark Navy Blue border */
+  border-radius: 5px;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-bar input:focus {
+  border-color: #FAD300;
+  /* Bright Yellow border on focus */
+  box-shadow: 0 0 0 0.2rem rgba(250, 211, 0, 0.25);
+  /* Bright Yellow shadow on focus */
 }
 
 .upcoming-retirement-btn {
-  background-color: #28a745;
-  color: #fff;
+  background-color: #FAD300;
+  /* Bright Yellow */
+  color: #0C121C;
+  /* Dark Navy Blue */
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 0.875rem;
-  margin-top: 10px;
+  margin-left: 20px;
+  text-align: center;
+  /* Center text */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .upcoming-retirement-btn:hover {
-  background-color: #218838;
+  background-color: #E6B800;
+  /* Slightly darker yellow */
+  color: #ffffff;
+  /* White text on hover */
 }
 
+.upcoming-retirement-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(250, 211, 0, 0.5);
+  /* Bright Yellow focus ring */
+}
+
+
+/* Table styling */
 .table-container {
   overflow-x: auto;
   margin: 0;
-  padding: 0; /* Removed padding */
+  padding: 0;
   width: 100%;
 }
 
@@ -56,31 +90,38 @@ h1 {
   border-collapse: collapse;
 }
 
-.employee-table th, .employee-table td {
+.employee-table th,
+.employee-table td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
 }
 
 .employee-table th {
-  background-color: #4caf50;
-  color: white;
+  background-color: #0C121C;
+  /* Dark Navy Blue */
+  color: #FAD300;
+  /* Bright Yellow */
 }
 
 .employee-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
+  /* Light gray for even rows */
 }
 
 .employee-table tr:hover {
-  background-color: #ddd;
+  background-color: #FAD300;
+  /* Bright Yellow on hover */
 }
 
 .table-heading {
   text-align: center;
   font-size: 1.2rem;
   padding: 10px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #0C121C;
+  /* Dark Navy Blue */
+  color: #FAD300;
+  /* Bright Yellow */
 }
 
 .actions-container {
@@ -90,6 +131,7 @@ h1 {
 
 button {
   background-color: #007bff;
+  /* Bootstrap primary color */
   color: #fff;
   border: none;
   padding: 8px 12px;
@@ -100,6 +142,7 @@ button {
 
 button:hover {
   background-color: #0056b3;
+  /* Darker blue for hover */
 }
 
 button:disabled {

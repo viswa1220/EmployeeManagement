@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { graphQLCommand } from '../utils';
-import EmployeeSearch from './EmployeeSearch';
-import EmployeeTable from './EmployeeTable';
-import './EmployeeList.css';
-import HeaderNavigation from './HeaderNavigation';
+import React, { useState, useEffect, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { graphQLCommand } from "../utils";
+import EmployeeSearch from "./EmployeeSearch";
+import EmployeeTable from "./EmployeeTable";
+import "./EmployeeList.css";
+import HeaderNavigation from "./HeaderNavigation";
 
 // GraphQL queries and mutations
 const LIST_EMPLOYEES = `
@@ -35,18 +35,18 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const currentType = queryParams.get('type') || 'all';
-  const searchTerm = queryParams.get('search') || '';
+  const currentType = queryParams.get("type") || "all";
+  const searchTerm = queryParams.get("search") || "";
 
   const fetchEmployees = useCallback(async () => {
     let query;
 
     switch (currentType) {
-      case 'fullTime':
+      case "fullTime":
         query = `
           query GetFullTimeEmployees {
             fullTimeEmployees {
@@ -63,7 +63,7 @@ const EmployeeList = () => {
           }
         `;
         break;
-      case 'partTime':
+      case "partTime":
         query = `
           query GetPartTimeEmployees {
             partTimeEmployees {
@@ -80,7 +80,7 @@ const EmployeeList = () => {
           }
         `;
         break;
-      case 'contract':
+      case "contract":
         query = `
           query GetContractEmployees {
             contractEmployees {
@@ -97,7 +97,7 @@ const EmployeeList = () => {
           }
         `;
         break;
-      case 'seasonal':
+      case "seasonal":
         query = `
           query GetSeasonalEmployees {
             seasonalEmployees {
@@ -119,14 +119,17 @@ const EmployeeList = () => {
     }
 
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const result = await graphQLCommand(query);
-      const employeeData = result[`${currentType}Employees`] || result.employees || [];
+      const employeeData =
+        result[`${currentType}Employees`] || result.employees || [];
       setEmployees(employeeData);
     } catch (error) {
-      setError('Failed to fetch employees: ' + (error.message || 'Unknown error'));
+      setError(
+        "Failed to fetch employees: " + (error.message || "Unknown error")
+      );
     } finally {
       setLoading(false);
     }
@@ -138,9 +141,10 @@ const EmployeeList = () => {
 
   useEffect(() => {
     const lowercasedTerm = searchTerm.toLowerCase();
-    const filtered = employees.filter((employee) =>
-      employee.firstName.toLowerCase().includes(lowercasedTerm) ||
-      employee.lastName.toLowerCase().includes(lowercasedTerm)
+    const filtered = employees.filter(
+      (employee) =>
+        employee.firstName.toLowerCase().includes(lowercasedTerm) ||
+        employee.lastName.toLowerCase().includes(lowercasedTerm)
     );
     setFilteredEmployees(filtered);
   }, [searchTerm, employees]);
@@ -150,19 +154,23 @@ const EmployeeList = () => {
   };
 
   const handleDelete = async (id, status) => {
-    if (status === 'Working') {
+    if (status === "Working") {
       alert("CAN'T DELETE EMPLOYEE – STATUS ACTIVE");
       return;
     }
-  
-    const isConfirmed = window.confirm('Are you sure you want to delete this employee?');
+
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this employee?"
+    );
     if (!isConfirmed) return;
-  
+
     try {
       await graphQLCommand(DELETE_EMPLOYEE, { id });
       fetchEmployees();
     } catch (error) {
-      setError('Error deleting employee: ' + (error.message || 'Unknown error'));
+      setError(
+        "Error deleting employee: " + (error.message || "Unknown error")
+      );
     }
   };
 
@@ -175,7 +183,7 @@ const EmployeeList = () => {
   };
 
   const handleUpcomingRetirement = () => {
-    navigate('/upcoming-retirement');
+    navigate("/upcoming-retirement");
   };
 
   return (
@@ -186,8 +194,8 @@ const EmployeeList = () => {
         <div className="d-flex flex-grow-1 justify-content-center">
           <EmployeeSearch onSearch={handleSearch} className="search-bar" />
         </div>
-        <button 
-          className="btn btn-success ms-3 btn-sm" 
+        <button
+          className="btn btn-success ms-3 btn-sm"
           onClick={handleUpcomingRetirement}
         >
           Upcoming Retirement
@@ -195,15 +203,15 @@ const EmployeeList = () => {
       </div>
 
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {filteredEmployees.length === 0 ? (
         <p>No employees available.</p>
       ) : (
-        <EmployeeTable 
-          employees={filteredEmployees} 
-          onDelete={handleDelete} 
-          onEdit={handleEdit} 
-          onViewDetails={handleViewDetails} 
+        <EmployeeTable
+          employees={filteredEmployees}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          onViewDetails={handleViewDetails}
         />
       )}
     </div>

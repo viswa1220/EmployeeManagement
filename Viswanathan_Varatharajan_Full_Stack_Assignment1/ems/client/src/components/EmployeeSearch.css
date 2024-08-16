@@ -3,11 +3,14 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 1rem;
+  /* Add some space above the search component */
 }
 
 .search-form {
   width: 100%;
-  max-width: 500px; /* Adjust the width as needed */
+  max-width: 600px;
+  /* Adjust the width as needed */
   display: flex;
   align-items: center;
 }
@@ -16,7 +19,8 @@
   width: 100%;
   padding: 10px 15px;
   font-size: 16px;
-  border: 1px solid #ced4da; /* Light gray border */
+  border: 1px solid #0C121C;
+  /* Dark Navy Blue border */
   border-radius: 5px;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -24,11 +28,15 @@
 }
 
 .search-input:focus {
-  border-color: #80bdff; /* Blue border on focus */
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Blue shadow on focus */
+  border-color: #FAD300;
+  /* Bright Yellow border on focus */
+  box-shadow: 0 0 0 0.2rem rgba(250, 211, 0, 0.25);
+  /* Bright Yellow shadow on focus */
 }
 
 .search-input::placeholder {
-  color: #6c757d; /* Light gray placeholder text */
-  opacity: 1; /* Ensure placeholder text is visible */
+  color: #6c757d;
+  /* Light gray placeholder text */
+  opacity: 1;
+  /* Ensure placeholder text is visible */
 }

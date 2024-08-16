@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import dayjs from 'dayjs';
-import './EmployeeCreate.css'; // Ensure Bootstrap is included in your project
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
+import "./EmployeeCreate.css"; // Ensure Bootstrap is included in your project
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const EmployeeCreate = ({ onEmployeeCreated }) => {
   const [employee, setEmployee] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    age: '',
-    dateOfJoining: '',
-    title: '',
-    department: '',
-    employeeType: '',
-    currentStatus: '',
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    age: "",
+    dateOfJoining: "",
+    title: "",
+    department: "",
+    employeeType: "",
+    currentStatus: "",
   });
 
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
   const calculateAge = (dob) => {
     const today = dayjs();
     const birthDate = dayjs(dob);
-    return today.diff(birthDate, 'year');
+    return today.diff(birthDate, "year");
   };
 
   const handleChange = (e) => {
@@ -32,13 +32,16 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
     setEmployee({
       ...employee,
       [name]: value,
-      dateOfJoining: name === 'dateOfJoining' ? new Date(value).toISOString() : employee.dateOfJoining,
+      dateOfJoining:
+        name === "dateOfJoining"
+          ? new Date(value).toISOString()
+          : employee.dateOfJoining,
     });
   };
 
   const handleDateOfBirthChange = (date) => {
     const age = calculateAge(date);
-    const status = age >= 65 ? 'Retired' : 'Working';
+    const status = age >= 65 ? "Retired" : "Working";
     setEmployee((prevState) => ({
       ...prevState,
       dateOfBirth: date,
@@ -50,10 +53,10 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/graphql', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/graphql", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           query: `
@@ -84,12 +87,15 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
       const result = await response.json();
       if (result.data && result.data.createEmployee) {
         onEmployeeCreated(result.data.createEmployee);
-        navigate('/list'); 
+        navigate("/list");
       } else {
-        console.error('Unexpected result format:', result);
+        console.error("Unexpected result format:", result);
       }
     } catch (error) {
-      console.error('Error creating employee:', error.message || 'Unknown error');
+      console.error(
+        "Error creating employee:",
+        error.message || "Unknown error"
+      );
     }
   };
 
@@ -97,8 +103,8 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
     <div className="container mt-4">
       <header className="d-flex justify-content-between align-items-center mb-4">
         <div className="d-flex justify-content-between w-100">
-          <h1 className="text-center flex-grow-1">Employee Management System</h1>
-          <button className="btn btn-secondary backList" onClick={() => navigate('/')}>
+          <h1 className="text-center flex-grow-1">Create Employee</h1>
+          <button className="btn btn-secondary" onClick={() => navigate("/")}>
             Back to List
           </button>
         </div>
@@ -155,7 +161,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
           <input
             type="date"
             name="dateOfJoining"
-            value={employee.dateOfJoining.split('T')[0]}
+            value={employee.dateOfJoining.split("T")[0]}
             onChange={handleChange}
             required
             className="form-control"
@@ -218,7 +224,9 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-success">Create Employee</button>
+        <button type="submit" className="btn btn-success">
+          Create Employee
+        </button>
       </form>
     </div>
   );

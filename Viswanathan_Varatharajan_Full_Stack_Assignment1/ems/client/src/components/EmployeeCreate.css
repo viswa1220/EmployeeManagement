@@ -1,15 +1,14 @@
-
 .container {
   margin: 0 auto;
   max-width: 80%;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
 header {
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
   padding: 10px;
   border-radius: 8px;
 }
@@ -27,7 +26,7 @@ header h1 {
   text-align: center;
 }
 
-.backList{
+.backList {
   margin-right: 10%;
   background-color: aliceblue;
   color: black;

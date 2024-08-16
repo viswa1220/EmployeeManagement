@@ -1,5 +1,8 @@
+/* EmployeeTable.css */
+
 .employee-table-container {
-  max-height: 70vh; /* Adjust the height as needed */
+  max-height: 70vh;
+  /* Adjust the height as needed */
   overflow-y: auto;
   position: relative;
 }
@@ -7,18 +10,35 @@
 .employee-table thead {
   position: sticky;
   top: 0;
-  z-index: 100; /* Ensure the header is above other content */
+  z-index: 100;
+  /* Ensure the header is above other content */
 }
 
 .table-header {
-  background-color: #28a745; /* Green header */
+  background-color: #FAD300;
   color: #ffffff;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f8f9fa; /* Light grey rows */
+  background-color: #f8f9fa;
+  /* Light grey rows */
 }
 
 .table-hover tbody tr:hover {
   background-color: #e9ecef;
+}
+
+/* Styling for the action buttons to align them in a row */
+.table-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  /* Adjust space between buttons */
+}
+
+.table-actions .btn {
+  margin: 0;
+  /* Remove default margins */
+  padding: 0.25rem 0.5rem;
+  /* Adjust padding for buttons */
 }
