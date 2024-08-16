@@ -1,12 +1,9 @@
 .read-only {
     background-color: #e9ecef;
-    /* Light gray background for read-only fields */
     color: #6c757d;
-    /* Gray text for read-only fields */
     cursor: not-allowed;
-    /* Show not-allowed cursor for read-only fields */
+    
 }
-
 .form-container_new {
     max-width: 600px;
     margin: 0 auto;
@@ -18,5 +15,5 @@
 
 h1 {
     color: #0C121C;
-    /* Dark navy blue color */
+   
 }

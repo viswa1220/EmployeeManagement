@@ -22,18 +22,16 @@ const App = () => {
     <>
       <HeaderComponent />
 
-      {/* Main content area structured with Bootstrap grid system */}
+     
       <div className="container my-4">
         <div className="row">
           <div className="col-12">
             <Routes>
-              {/* Redirect from root to /employees */}
               <Route
                 path="/"
                 element={<Navigate replace to="/employees/list" />}
               />
 
-              {/* Nested Routes for Employee Management */}
               <Route path="/employees">
                 <Route index element={<Navigate replace to="list" />} />
                 <Route
@@ -54,8 +52,6 @@ const App = () => {
                 path="/upcoming-retirement"
                 element={<UpcomingRetirement />}
               />
-
-              {/* Not matched routes */}
               <Route path="*" element={<Navigate to="/employees/list" />} />
             </Routes>
           </div>

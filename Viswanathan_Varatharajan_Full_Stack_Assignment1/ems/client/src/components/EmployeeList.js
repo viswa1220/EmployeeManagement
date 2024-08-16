@@ -5,7 +5,7 @@ import { graphQLCommand } from "../utils";
 import EmployeeSearch from "./EmployeeSearch";
 import EmployeeTable from "./EmployeeTable";
 import "./EmployeeList.css";
-import HeaderNavigation from "./HeaderNavigation";
+import HeaderNavigation from "./Headernavigation";
 
 
 const LIST_EMPLOYEES = `

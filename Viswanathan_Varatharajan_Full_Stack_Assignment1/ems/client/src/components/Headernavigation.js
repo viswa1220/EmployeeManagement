@@ -1,58 +1,66 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Navbar, Nav, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navigation.css";
 
 const HeaderNavigation = ({ currentType }) => {
   const location = useLocation();
 
   return (
-    <nav className="nav-container">
-      <ul className="nav-links">
-        <li>
-          <Link
-            to={`?type=all`}
+    <Navbar bg="light" expand="lg" className="mb-4">
+      <Navbar.Brand as={Link} to="/">
+        Employee Management
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link
+            as={Link}
+            to="?type=all"
             className={currentType === "all" ? "active" : ""}
           >
             All Employees
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`?type=fullTime`}
+          </Nav.Link>
+          <Nav.Link
+            as={Link}
+            to="?type=fullTime"
             className={currentType === "fullTime" ? "active" : ""}
           >
             Full Time
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`?type=partTime`}
+          </Nav.Link>
+          <Nav.Link
+            as={Link}
+            to="?type=partTime"
             className={currentType === "partTime" ? "active" : ""}
           >
             Part Time
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`?type=contract`}
+          </Nav.Link>
+          <Nav.Link
+            as={Link}
+            to="?type=contract"
             className={currentType === "contract" ? "active" : ""}
           >
             Contract
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`?type=seasonal`}
+          </Nav.Link>
+          <Nav.Link
+            as={Link}
+            to="?type=seasonal"
             className={currentType === "seasonal" ? "active" : ""}
           >
             Seasonal
-          </Link>
-        </li>
-      </ul>
-      <Link to="/employees/create" className="create-button">
-        Create Employee
-      </Link>
-    </nav>
+          </Nav.Link>
+        </Nav>
+        <Button
+          as={Link}
+          to="/employees/create"
+          variant="primary"
+          className="ms-auto"
+        >
+          Create Employee
+        </Button>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 

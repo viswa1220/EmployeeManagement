@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
-import "./EmployeeCreate.css"; 
+import "./EmployeeCreate.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const EmployeeCreate = ({ onEmployeeCreated }) => {
@@ -19,12 +19,31 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
     currentStatus: "",
   });
 
+  const [errors, setErrors] = useState({}); // State to store error messages
   const navigate = useNavigate();
 
   const calculateAge = (dob) => {
     const today = dayjs();
     const birthDate = dayjs(dob);
     return today.diff(birthDate, "year");
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!employee.firstName) newErrors.firstName = "First Name is required.";
+    if (!employee.lastName) newErrors.lastName = "Last Name is required.";
+    if (!employee.dateOfBirth) newErrors.dateOfBirth = "Date of Birth is required.";
+    if (!employee.dateOfJoining) newErrors.dateOfJoining = "Date of Joining is required.";
+    if (!employee.title) newErrors.title = "Title is required.";
+    if (!employee.department) newErrors.department = "Department is required.";
+    if (!employee.employeeType) newErrors.employeeType = "Employee Type is required.";
+
+    if (employee.age < 20 || employee.age > 70) {
+      newErrors.age = "Age must be between 20 and 70.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleChange = (e) => {
@@ -40,18 +59,31 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
   };
 
   const handleDateOfBirthChange = (date) => {
-    const age = calculateAge(date);
-    const status = age >= 65 ? "Retired" : "Working";
-    setEmployee((prevState) => ({
-      ...prevState,
-      dateOfBirth: date,
-      age,
-      currentStatus: status,
-    }));
+    if (date) {
+      const age = calculateAge(date);
+      if (age < 20 || age > 70) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          age: "Age must be between 20 and 70.",
+        }));
+        return;
+      }
+      const status = age >= 65 ? "Retired" : "Working";
+      setEmployee((prevState) => ({
+        ...prevState,
+        dateOfBirth: date,
+        age,
+        currentStatus: status,
+      }));
+      setErrors((prevErrors) => ({ ...prevErrors, age: "" }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await fetch("http://localhost:3001/graphql", {
         method: "POST",
@@ -119,9 +151,9 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             value={employee.firstName}
             onChange={handleChange}
             placeholder="First Name"
-            required
             className="form-control"
           />
+          {errors.firstName && <div className="text-danger">{errors.firstName}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Last Name</label>
@@ -131,9 +163,9 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             value={employee.lastName}
             onChange={handleChange}
             placeholder="Last Name"
-            required
             className="form-control"
           />
+          {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Date of Birth</label>
@@ -143,8 +175,9 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             dateFormat="yyyy-MM-dd"
             className="form-control"
             placeholderText="Select Date of Birth"
-            required
           />
+          {errors.dateOfBirth && <div className="text-danger">{errors.dateOfBirth}</div>}
+          {errors.age && <div className="text-danger">{errors.age}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Age</label>
@@ -155,6 +188,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             readOnly
             className="form-control"
           />
+          {errors.age && <div className="text-danger">{errors.age}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Date of Joining</label>
@@ -163,9 +197,9 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             name="dateOfJoining"
             value={employee.dateOfJoining.split("T")[0]}
             onChange={handleChange}
-            required
             className="form-control"
           />
+          {errors.dateOfJoining && <div className="text-danger">{errors.dateOfJoining}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Title</label>
@@ -173,7 +207,6 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             name="title"
             value={employee.title}
             onChange={handleChange}
-            required
             className="form-select"
           >
             <option value="">Select Title</option>
@@ -182,6 +215,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             <option value="Designer">Designer</option>
             <option value="Tester">Tester</option>
           </select>
+          {errors.title && <div className="text-danger">{errors.title}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Department</label>
@@ -189,7 +223,6 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             name="department"
             value={employee.department}
             onChange={handleChange}
-            required
             className="form-select"
           >
             <option value="">Select Department</option>
@@ -197,6 +230,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             <option value="Engineering">Engineering</option>
             <option value="IT">IT</option>
           </select>
+          {errors.department && <div className="text-danger">{errors.department}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Employee Type</label>
@@ -204,7 +238,6 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             name="employeeType"
             value={employee.employeeType}
             onChange={handleChange}
-            required
             className="form-select"
           >
             <option value="">Select Employee Type</option>
@@ -213,6 +246,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
             <option value="CONTRACT">Contract</option>
             <option value="SEASONAL">Seasonal</option>
           </select>
+          {errors.employeeType && <div className="text-danger">{errors.employeeType}</div>}
         </div>
         <div className="form-group">
           <label className="form-label">Current Status</label>
