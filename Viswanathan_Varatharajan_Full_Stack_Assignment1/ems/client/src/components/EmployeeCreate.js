@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
-import "./EmployeeCreate.css"; // Ensure Bootstrap is included in your project
+import "./EmployeeCreate.css"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const EmployeeCreate = ({ onEmployeeCreated }) => {
@@ -101,7 +101,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
 
   return (
     <div className="container mt-4">
-      <header className="d-flex justify-content-between align-items-center mb-4">
+      <header className="d-flex justify-content-between align-items-center mb-4 headingColor">
         <div className="d-flex justify-content-between w-100">
           <h1 className="text-center flex-grow-1">Create Employee</h1>
           <button className="btn btn-secondary" onClick={() => navigate("/")}>

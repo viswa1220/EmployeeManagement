@@ -27,13 +27,14 @@ const calculateRetirementTime = (dateOfBirth) => {
   const now = dayjs();
 
   if (retirementDate.isBefore(now)) {
-    return { months: 0, days: 0, isRetired: true };
+    return { years: 0, months: 0, days: 0, isRetired: true };
   }
 
-  const monthsLeft = retirementDate.diff(now, "month");
-  const daysLeft = retirementDate.diff(now.add(monthsLeft, "month"), "day");
+  const yearsLeft = retirementDate.diff(now, "year");
+  const monthsLeft = retirementDate.diff(now.add(yearsLeft, "year"), "month");
+  const daysLeft = retirementDate.diff(now.add(yearsLeft, "year").add(monthsLeft, "month"), "day");
 
-  return { months: monthsLeft, days: daysLeft, isRetired: false };
+  return { years: yearsLeft, months: monthsLeft, days: daysLeft, isRetired: false };
 };
 
 const EmployeeDetail = () => {
@@ -68,7 +69,7 @@ const EmployeeDetail = () => {
   const dateOfBirth = dayjs(Number(employee.dateOfBirth));
   const dateOfJoining = dayjs(Number(employee.dateOfJoining));
 
-  const { months, days, isRetired } = calculateRetirementTime(dateOfBirth);
+  const { years, months, days, isRetired } = calculateRetirementTime(dateOfBirth);
 
   return (
     <div className="mt-5">
@@ -107,7 +108,7 @@ const EmployeeDetail = () => {
           </p>
           <p>
             <strong>Status:</strong>{" "}
-            {employee.currentStatus === "true" ? "Active" : "Inactive"}
+            {employee.currentStatus}
           </p>
           {isRetired ? (
             <p>
@@ -115,7 +116,7 @@ const EmployeeDetail = () => {
             </p>
           ) : (
             <p>
-              <strong>Retirement in:</strong> {months} months and {days} days
+              <strong>Retirement in:</strong> {years} years, {months} months, and {days} days
             </p>
           )}
         </div>

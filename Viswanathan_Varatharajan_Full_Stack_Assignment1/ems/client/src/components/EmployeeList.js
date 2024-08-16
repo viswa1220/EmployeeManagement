@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import dayjs from "dayjs"; // Import dayjs for date formatting
 import { graphQLCommand } from "../utils";
 import EmployeeSearch from "./EmployeeSearch";
 import EmployeeTable from "./EmployeeTable";
 import "./EmployeeList.css";
 import HeaderNavigation from "./HeaderNavigation";
 
-// GraphQL queries and mutations
+
 const LIST_EMPLOYEES = `
   query GetEmployees {
     employees {
@@ -125,7 +126,16 @@ const EmployeeList = () => {
       const result = await graphQLCommand(query);
       const employeeData =
         result[`${currentType}Employees`] || result.employees || [];
-      setEmployees(employeeData);
+
+      
+      const formattedEmployees = employeeData.map((employee) => ({
+        ...employee,
+        dateOfJoining: dayjs(parseInt(employee.dateOfJoining)).format(
+          "YYYY-MM-DD"
+        ),
+      }));
+
+      setEmployees(formattedEmployees);
     } catch (error) {
       setError(
         "Failed to fetch employees: " + (error.message || "Unknown error")
