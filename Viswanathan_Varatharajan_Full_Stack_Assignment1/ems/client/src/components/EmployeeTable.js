@@ -23,7 +23,7 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
         <tbody>
           {employees.length > 0 ? (
             employees.map((employee) => {
-              const status = employee.currentStatus ? 'Working' : 'Retired';
+              
               const formattedDateOfJoining = dayjs(employee.dateOfJoining).format('MMMM D, YYYY');
 
               return (
@@ -35,11 +35,31 @@ const EmployeeTable = ({ employees, onDelete, onEdit, onViewDetails }) => (
                   <td>{employee.title}</td>
                   <td>{employee.department}</td>
                   <td>{employee.employeeType}</td>
-                  <td>{status}</td>
+                  <td>{employee.currentStatus }</td>
                   <td>
-                    <Button variant="primary" size="sm" onClick={() => onViewDetails(employee.id)} className="me-2">View</Button>
-                    <Button variant="warning" size="sm" onClick={() => onEdit(employee.id)} className="me-2">Edit</Button>
-                    <Button variant="danger" size="sm" onClick={() => onDelete(employee.id)}>Delete</Button>
+                    <Button 
+                      variant="primary" 
+                      size="sm" 
+                      onClick={() => onViewDetails(employee.id)} 
+                      className="me-2"
+                    >
+                      View
+                    </Button>
+                    <Button 
+                      variant="warning" 
+                      size="sm" 
+                      onClick={() => onEdit(employee.id)} 
+                      className="me-2"
+                    >
+                      Edit
+                    </Button>
+                    <Button 
+                      variant="danger" 
+                      size="sm" 
+                      onClick={() => onDelete(employee.id, employee.currentStatus)}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               );

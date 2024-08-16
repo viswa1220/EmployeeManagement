@@ -145,10 +145,15 @@ const EmployeeList = () => {
     setFilteredEmployees(filtered);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, status) => {
+    if (status === 'Working') {
+      alert("CAN'T DELETE EMPLOYEE – STATUS ACTIVE");
+      return;
+    }
+  
     const isConfirmed = window.confirm('Are you sure you want to delete this employee?');
     if (!isConfirmed) return;
-
+  
     try {
       await graphQLCommand(DELETE_EMPLOYEE, { id });
       fetchEmployees();
@@ -156,7 +161,7 @@ const EmployeeList = () => {
       setError('Error deleting employee: ' + (error.message || 'Unknown error'));
     }
   };
-
+  
   const handleEdit = (id) => {
     navigate(`/edit-employee/${id}`);
   };

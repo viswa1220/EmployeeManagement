@@ -49,8 +49,8 @@ const resolvers = {
         // Create and save employee
         const employee = new Employee({
           ...input,
-          dateOfJoining: new Date(input.dateOfJoining), // Ensure date is a Date object
-          currentStatus: true,
+          dateOfJoining: new Date(input.dateOfJoining) // Ensure date is a Date object
+        
         });
         await employee.save();
         return employee;

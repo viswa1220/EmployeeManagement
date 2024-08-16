@@ -54,7 +54,7 @@ const EditEmployee = ({ onEmployeeUpdated }) => {
     title: '',
     department: '',
     employeeType: '',
-    currentStatus: true,
+    currentStatus: '',
   });
   const [error, setError] = useState('');
 

@@ -11,7 +11,7 @@ const EmployeeRow = ({ employee, onDelete, onEdit, onViewDetails }) => (
     <td>{employee.title}</td>
     <td>{employee.department}</td>
     <td>{employee.employeeType.replace('_', ' ')}</td>
-    <td>{employee.currentStatus ? 'Working' : 'Retired'}</td>
+    <td>{employee.currentStatus}</td>
     <td>
       <div className="actions-container">
         <button onClick={() => onViewDetails(employee.id)}>View Details</button>
