@@ -19,7 +19,7 @@ const EmployeeCreate = ({ onEmployeeCreated }) => {
     currentStatus: "",
   });
 
-  const [errors, setErrors] = useState({}); // State to store error messages
+  const [errors, setErrors] = useState({}); 
   const navigate = useNavigate();
 
   const calculateAge = (dob) => {

@@ -2,7 +2,6 @@
 
 .employee-table-container {
   max-height: 70vh;
-  /* Adjust the height as needed */
   overflow-y: auto;
   position: relative;
 }
@@ -11,7 +10,6 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Ensure the header is above other content */
 }
 
 .table-header {
@@ -21,19 +19,17 @@
 
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #f8f9fa;
-  /* Light grey rows */
 }
 
 .table-hover tbody tr:hover {
   background-color: #e9ecef;
 }
 
-/* Styling for the action buttons to align them in a row */
 .table-actions {
   display: flex;
   justify-content: flex-start;
   gap: 0.5rem;
-  /* Adjust space between buttons */
+  
 }
 
 .table-actions .btn {
